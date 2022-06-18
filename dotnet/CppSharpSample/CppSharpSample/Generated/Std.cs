@@ -10,5 +10,5 @@ using System.Runtime.InteropServices;
 using System.Security;
 using __CallingConvention = global::System.Runtime.InteropServices.CallingConvention;
 using __IntPtr = global::System.IntPtr;
-[assembly:InternalsVisibleTo("CppSharpSample")]
+[assembly:InternalsVisibleTo("CppSharpSampleNative")]
 

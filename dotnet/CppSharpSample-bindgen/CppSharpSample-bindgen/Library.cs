@@ -60,7 +60,7 @@ namespace CppSharpSampleBindgen
         {
             driver.Options.GeneratorKind = GeneratorKind.CSharp;
             driver.Options.OutputDir = _outputPath;
-            var module = driver.Options.AddModule("CppSharpSample");
+            var module = driver.Options.AddModule("CppSharpSampleNative");
             module.OutputNamespace = "CppSharpSampleBinding";
             module.IncludeDirs.Add(_includePath);
             module.Headers.Add("header.h");

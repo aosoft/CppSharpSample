@@ -19,10 +19,10 @@ namespace CppSharpSampleBinding
     {
         public partial struct __Internal
         {
-            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSample", EntryPoint = "Sum", CallingConvention = __CallingConvention.Cdecl)]
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "Sum", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern int Sum(int a, int b);
 
-            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSample", EntryPoint = "Sum2", CallingConvention = __CallingConvention.Cdecl)]
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "Sum2", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern int Sum2(__IntPtr fn, int a, int b);
         }
 
