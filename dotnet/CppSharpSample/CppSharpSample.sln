@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CppSharpSample", "CppSharpSample\CppSharpSample.csproj", "{F86209B2-5CE9-48F8-AEFA-96A3EED00843}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CppSharpSample.Test", "CppSharpSample.Test\CppSharpSample.Test.csproj", "{50D179D9-8DEB-488C-9C67-0E43C0A11338}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F86209B2-5CE9-48F8-AEFA-96A3EED00843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86209B2-5CE9-48F8-AEFA-96A3EED00843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86209B2-5CE9-48F8-AEFA-96A3EED00843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86209B2-5CE9-48F8-AEFA-96A3EED00843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50D179D9-8DEB-488C-9C67-0E43C0A11338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50D179D9-8DEB-488C-9C67-0E43C0A11338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50D179D9-8DEB-488C-9C67-0E43C0A11338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50D179D9-8DEB-488C-9C67-0E43C0A11338}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

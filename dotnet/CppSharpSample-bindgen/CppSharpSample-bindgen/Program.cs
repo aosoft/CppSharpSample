@@ -10,7 +10,7 @@ while (true)
     var dir = Path.Combine(info.FullName, "cpp", "include");
     if (Directory.Exists(dir))
     {
-        var outDir = Path.Combine(info.FullName, "dotnet", "CppSharpSample", "Generated");
+        var outDir = Path.Combine(info.FullName, "dotnet", "CppSharpSample", "CppSharpSample", "Generated");
         if (!Directory.Exists(outDir))
         {
             Directory.CreateDirectory(outDir);
