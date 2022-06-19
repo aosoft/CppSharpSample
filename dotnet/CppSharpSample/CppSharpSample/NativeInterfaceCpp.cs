@@ -1,6 +1,6 @@
 ﻿namespace CppSharpSample
 {
-    public sealed class NativeInterface : IDisposable
+    public sealed class NativeInterfaceCpp : IDisposable
     {
         private readonly CppSharpSampleBinding.NativeFunctionTable _native;
         private readonly CppSharpSampleBinding.Delegates.Func_int___IntPtr _getValue;
@@ -9,7 +9,7 @@
 
         private IntPtr _context;
 
-        public NativeInterface()
+        public NativeInterfaceCpp()
         {
             _native = CppSharpSampleBinding.header.GetFunctionTable();
             _getValue = _native.GetValue;
