@@ -2,7 +2,7 @@
 {
     public sealed class NativeInterface : IDisposable
     {
-        private readonly CppSharpSampleBinding.Delegates.Action___IntPtr _destroy;
+        private readonly CppSharpSampleBinding.NativeFunctionTable _native;
         private readonly CppSharpSampleBinding.Delegates.Func_int___IntPtr _getValue;
         private readonly CppSharpSampleBinding.Delegates.Action___IntPtr_int _setValue;
         private readonly CppSharpSampleBinding.Delegates.Action___IntPtr _print;
@@ -11,11 +11,10 @@
 
         public NativeInterface()
         {
-            var intf = CppSharpSampleBinding.header.GetFunctionTable();
-            _destroy = intf.Destroy;
-            _getValue = intf.GetValue;
-            _setValue = intf.SetValue;
-            _print = intf.Print;
+            _native = CppSharpSampleBinding.header.GetFunctionTable();
+            _getValue = _native.GetValue;
+            _setValue = _native.SetValue;
+            _print = _native.Print;
             _context = CppSharpSampleBinding.header.CreateNativeContext();
         }
         
@@ -23,7 +22,7 @@
         {
             if (_context != IntPtr.Zero)
             {
-                _destroy(_context);
+                _native.Destroy(_context);
                 _context = IntPtr.Zero;
             }
         }

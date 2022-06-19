@@ -15,7 +15,7 @@ namespace CppSharpSampleBinding
     [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(__CallingConvention.Cdecl)]
     public unsafe delegate int FnSum(int __0, int __1);
 
-    public unsafe partial class NativeInterface : IDisposable
+    public unsafe partial class NativeFunctionTable : IDisposable
     {
         [StructLayout(LayoutKind.Sequential, Size = 32)]
         public partial struct __Internal
@@ -25,36 +25,36 @@ namespace CppSharpSampleBinding
             internal __IntPtr SetValue;
             internal __IntPtr Print;
 
-            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "??0NativeInterface@@QEAA@AEBU0@@Z", CallingConvention = __CallingConvention.Cdecl)]
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "??0NativeFunctionTable@@QEAA@AEBU0@@Z", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr cctor(__IntPtr __instance, __IntPtr _0);
         }
 
         public __IntPtr __Instance { get; protected set; }
 
-        internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::CppSharpSampleBinding.NativeInterface> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::CppSharpSampleBinding.NativeInterface>();
+        internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::CppSharpSampleBinding.NativeFunctionTable> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::CppSharpSampleBinding.NativeFunctionTable>();
 
         protected bool __ownsNativeInstance;
 
-        internal static NativeInterface __CreateInstance(__IntPtr native, bool skipVTables = false)
+        internal static NativeFunctionTable __CreateInstance(__IntPtr native, bool skipVTables = false)
         {
-            return new NativeInterface(native.ToPointer(), skipVTables);
+            return new NativeFunctionTable(native.ToPointer(), skipVTables);
         }
 
-        internal static NativeInterface __GetOrCreateInstance(__IntPtr native, bool saveInstance = false, bool skipVTables = false)
+        internal static NativeFunctionTable __GetOrCreateInstance(__IntPtr native, bool saveInstance = false, bool skipVTables = false)
         {
             if (native == __IntPtr.Zero)
                 return null;
             if (NativeToManagedMap.TryGetValue(native, out var managed))
-                return (NativeInterface)managed;
+                return (NativeFunctionTable)managed;
             var result = __CreateInstance(native, skipVTables);
             if (saveInstance)
                 NativeToManagedMap[native] = result;
             return result;
         }
 
-        internal static NativeInterface __CreateInstance(__Internal native, bool skipVTables = false)
+        internal static NativeFunctionTable __CreateInstance(__Internal native, bool skipVTables = false)
         {
-            return new NativeInterface(native, skipVTables);
+            return new NativeFunctionTable(native, skipVTables);
         }
 
         private static void* __CopyValue(__Internal native)
@@ -64,33 +64,33 @@ namespace CppSharpSampleBinding
             return ret.ToPointer();
         }
 
-        private NativeInterface(__Internal native, bool skipVTables = false)
+        private NativeFunctionTable(__Internal native, bool skipVTables = false)
             : this(__CopyValue(native), skipVTables)
         {
             __ownsNativeInstance = true;
             NativeToManagedMap[__Instance] = this;
         }
 
-        protected NativeInterface(void* native, bool skipVTables = false)
+        protected NativeFunctionTable(void* native, bool skipVTables = false)
         {
             if (native == null)
                 return;
             __Instance = new __IntPtr(native);
         }
 
-        public NativeInterface()
+        public NativeFunctionTable()
         {
-            __Instance = Marshal.AllocHGlobal(sizeof(global::CppSharpSampleBinding.NativeInterface.__Internal));
+            __Instance = Marshal.AllocHGlobal(sizeof(global::CppSharpSampleBinding.NativeFunctionTable.__Internal));
             __ownsNativeInstance = true;
             NativeToManagedMap[__Instance] = this;
         }
 
-        public NativeInterface(global::CppSharpSampleBinding.NativeInterface _0)
+        public NativeFunctionTable(global::CppSharpSampleBinding.NativeFunctionTable _0)
         {
-            __Instance = Marshal.AllocHGlobal(sizeof(global::CppSharpSampleBinding.NativeInterface.__Internal));
+            __Instance = Marshal.AllocHGlobal(sizeof(global::CppSharpSampleBinding.NativeFunctionTable.__Internal));
             __ownsNativeInstance = true;
             NativeToManagedMap[__Instance] = this;
-            *((global::CppSharpSampleBinding.NativeInterface.__Internal*) __Instance) = *((global::CppSharpSampleBinding.NativeInterface.__Internal*) _0.__Instance);
+            *((global::CppSharpSampleBinding.NativeFunctionTable.__Internal*) __Instance) = *((global::CppSharpSampleBinding.NativeFunctionTable.__Internal*) _0.__Instance);
         }
 
         public void Dispose()
@@ -183,6 +183,9 @@ namespace CppSharpSampleBinding
 
             [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "CreateNativeContext", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr CreateNativeContext();
+
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "TestCallback", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern void TestCallback(__IntPtr funcTable, __IntPtr context);
         }
 
         public static int Sum(int a, int b)
@@ -198,10 +201,10 @@ namespace CppSharpSampleBinding
             return __ret;
         }
 
-        public static global::CppSharpSampleBinding.NativeInterface GetFunctionTable()
+        public static global::CppSharpSampleBinding.NativeFunctionTable GetFunctionTable()
         {
             var __ret = __Internal.GetFunctionTable();
-            var __result0 = global::CppSharpSampleBinding.NativeInterface.__GetOrCreateInstance(__ret, false);
+            var __result0 = global::CppSharpSampleBinding.NativeFunctionTable.__GetOrCreateInstance(__ret, false);
             return __result0;
         }
 
@@ -209,6 +212,12 @@ namespace CppSharpSampleBinding
         {
             var __ret = __Internal.CreateNativeContext();
             return __ret;
+        }
+
+        public static void TestCallback(global::CppSharpSampleBinding.NativeFunctionTable funcTable, __IntPtr context)
+        {
+            var __arg0 = funcTable is null ? __IntPtr.Zero : funcTable.__Instance;
+            __Internal.TestCallback(__arg0, context);
         }
     }
 
