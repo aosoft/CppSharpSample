@@ -15,6 +15,159 @@ namespace CppSharpSampleBinding
     [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(__CallingConvention.Cdecl)]
     public unsafe delegate int FnSum(int __0, int __1);
 
+    public unsafe partial class NativeInterface : IDisposable
+    {
+        [StructLayout(LayoutKind.Sequential, Size = 32)]
+        public partial struct __Internal
+        {
+            internal __IntPtr Destroy;
+            internal __IntPtr GetValue;
+            internal __IntPtr SetValue;
+            internal __IntPtr Print;
+
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "??0NativeInterface@@QEAA@AEBU0@@Z", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr cctor(__IntPtr __instance, __IntPtr _0);
+        }
+
+        public __IntPtr __Instance { get; protected set; }
+
+        internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::CppSharpSampleBinding.NativeInterface> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::CppSharpSampleBinding.NativeInterface>();
+
+        protected bool __ownsNativeInstance;
+
+        internal static NativeInterface __CreateInstance(__IntPtr native, bool skipVTables = false)
+        {
+            return new NativeInterface(native.ToPointer(), skipVTables);
+        }
+
+        internal static NativeInterface __GetOrCreateInstance(__IntPtr native, bool saveInstance = false, bool skipVTables = false)
+        {
+            if (native == __IntPtr.Zero)
+                return null;
+            if (NativeToManagedMap.TryGetValue(native, out var managed))
+                return (NativeInterface)managed;
+            var result = __CreateInstance(native, skipVTables);
+            if (saveInstance)
+                NativeToManagedMap[native] = result;
+            return result;
+        }
+
+        internal static NativeInterface __CreateInstance(__Internal native, bool skipVTables = false)
+        {
+            return new NativeInterface(native, skipVTables);
+        }
+
+        private static void* __CopyValue(__Internal native)
+        {
+            var ret = Marshal.AllocHGlobal(sizeof(__Internal));
+            *(__Internal*) ret = native;
+            return ret.ToPointer();
+        }
+
+        private NativeInterface(__Internal native, bool skipVTables = false)
+            : this(__CopyValue(native), skipVTables)
+        {
+            __ownsNativeInstance = true;
+            NativeToManagedMap[__Instance] = this;
+        }
+
+        protected NativeInterface(void* native, bool skipVTables = false)
+        {
+            if (native == null)
+                return;
+            __Instance = new __IntPtr(native);
+        }
+
+        public NativeInterface()
+        {
+            __Instance = Marshal.AllocHGlobal(sizeof(global::CppSharpSampleBinding.NativeInterface.__Internal));
+            __ownsNativeInstance = true;
+            NativeToManagedMap[__Instance] = this;
+        }
+
+        public NativeInterface(global::CppSharpSampleBinding.NativeInterface _0)
+        {
+            __Instance = Marshal.AllocHGlobal(sizeof(global::CppSharpSampleBinding.NativeInterface.__Internal));
+            __ownsNativeInstance = true;
+            NativeToManagedMap[__Instance] = this;
+            *((global::CppSharpSampleBinding.NativeInterface.__Internal*) __Instance) = *((global::CppSharpSampleBinding.NativeInterface.__Internal*) _0.__Instance);
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true, callNativeDtor : __ownsNativeInstance );
+        }
+
+        partial void DisposePartial(bool disposing);
+
+        internal protected virtual void Dispose(bool disposing, bool callNativeDtor )
+        {
+            if (__Instance == IntPtr.Zero)
+                return;
+            NativeToManagedMap.TryRemove(__Instance, out _);
+            DisposePartial(disposing);
+            if (__ownsNativeInstance)
+                Marshal.FreeHGlobal(__Instance);
+            __Instance = IntPtr.Zero;
+        }
+
+        public global::CppSharpSampleBinding.Delegates.Action___IntPtr Destroy
+        {
+            get
+            {
+                var __ptr0 = ((__Internal*)__Instance)->Destroy;
+                return __ptr0 == IntPtr.Zero? null : (global::CppSharpSampleBinding.Delegates.Action___IntPtr) Marshal.GetDelegateForFunctionPointer(__ptr0, typeof(global::CppSharpSampleBinding.Delegates.Action___IntPtr));
+            }
+
+            set
+            {
+                ((__Internal*)__Instance)->Destroy = value == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(value);
+            }
+        }
+
+        public global::CppSharpSampleBinding.Delegates.Func_int___IntPtr GetValue
+        {
+            get
+            {
+                var __ptr0 = ((__Internal*)__Instance)->GetValue;
+                return __ptr0 == IntPtr.Zero? null : (global::CppSharpSampleBinding.Delegates.Func_int___IntPtr) Marshal.GetDelegateForFunctionPointer(__ptr0, typeof(global::CppSharpSampleBinding.Delegates.Func_int___IntPtr));
+            }
+
+            set
+            {
+                ((__Internal*)__Instance)->GetValue = value == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(value);
+            }
+        }
+
+        public global::CppSharpSampleBinding.Delegates.Action___IntPtr_int SetValue
+        {
+            get
+            {
+                var __ptr0 = ((__Internal*)__Instance)->SetValue;
+                return __ptr0 == IntPtr.Zero? null : (global::CppSharpSampleBinding.Delegates.Action___IntPtr_int) Marshal.GetDelegateForFunctionPointer(__ptr0, typeof(global::CppSharpSampleBinding.Delegates.Action___IntPtr_int));
+            }
+
+            set
+            {
+                ((__Internal*)__Instance)->SetValue = value == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(value);
+            }
+        }
+
+        public global::CppSharpSampleBinding.Delegates.Action___IntPtr Print
+        {
+            get
+            {
+                var __ptr0 = ((__Internal*)__Instance)->Print;
+                return __ptr0 == IntPtr.Zero? null : (global::CppSharpSampleBinding.Delegates.Action___IntPtr) Marshal.GetDelegateForFunctionPointer(__ptr0, typeof(global::CppSharpSampleBinding.Delegates.Action___IntPtr));
+            }
+
+            set
+            {
+                ((__Internal*)__Instance)->Print = value == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(value);
+            }
+        }
+    }
+
     public unsafe partial class header
     {
         public partial struct __Internal
@@ -24,6 +177,12 @@ namespace CppSharpSampleBinding
 
             [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "Sum2", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern int Sum2(__IntPtr fn, int a, int b);
+
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "GetFunctionTable", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr GetFunctionTable();
+
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "CreateNativeContext", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr CreateNativeContext();
         }
 
         public static int Sum(int a, int b)
@@ -38,5 +197,30 @@ namespace CppSharpSampleBinding
             var __ret = __Internal.Sum2(__arg0, a, b);
             return __ret;
         }
+
+        public static global::CppSharpSampleBinding.NativeInterface GetFunctionTable()
+        {
+            var __ret = __Internal.GetFunctionTable();
+            var __result0 = global::CppSharpSampleBinding.NativeInterface.__GetOrCreateInstance(__ret, false);
+            return __result0;
+        }
+
+        public static __IntPtr CreateNativeContext()
+        {
+            var __ret = __Internal.CreateNativeContext();
+            return __ret;
+        }
+    }
+
+    namespace Delegates
+    {
+        [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(__CallingConvention.Cdecl)]
+        public unsafe delegate void Action___IntPtr(__IntPtr __0);
+
+        [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(__CallingConvention.Cdecl)]
+        public unsafe delegate int Func_int___IntPtr(__IntPtr __0);
+
+        [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(__CallingConvention.Cdecl)]
+        public unsafe delegate void Action___IntPtr_int(__IntPtr __0, int __1);
     }
 }
