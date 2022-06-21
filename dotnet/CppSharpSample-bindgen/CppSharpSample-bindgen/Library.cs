@@ -17,39 +17,6 @@ namespace CppSharpSampleBindgen
 
         public void Postprocess(Driver driver, ASTContext ctx)
         {
-            foreach (var module in ctx.TranslationUnits)
-            {
-                InternalPostprocess(driver, module);
-            }
-        }
-
-        private void InternalPostprocess(Driver driver, DeclarationContext module)
-        {
-            foreach (var ns in module.Namespaces)
-            {
-                InternalPostprocess(driver, ns);
-            }
-            foreach (var c in module.Classes)
-            {
-                c.Name = c.OriginalName;
-                foreach (var f in c.Functions)
-                {
-                    f.Name = f.OriginalName;
-                }
-                foreach (var f in c.Methods)
-                {
-                    f.Name = f.OriginalName;
-                    f.ConvertToProperty = false;
-                }
-            }
-            foreach (var f in module.Functions)
-            {
-                f.Name = f.OriginalName;
-            }
-            foreach (var f in module.Enums)
-            {
-                f.Name = f.OriginalName;
-            }
         }
 
         public void Preprocess(Driver driver, ASTContext ctx)
