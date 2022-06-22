@@ -178,6 +178,9 @@ namespace CppSharpSampleBinding
             [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "Sum2", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern int Sum2(__IntPtr fn, int a, int b);
 
+            [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "print_text", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern void print_text([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string text);
+
             [SuppressUnmanagedCodeSecurity, DllImport("CppSharpSampleNative", EntryPoint = "GetFunctionTable", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr GetFunctionTable();
 
@@ -199,6 +202,11 @@ namespace CppSharpSampleBinding
             var __arg0 = fn == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(fn);
             var __ret = __Internal.Sum2(__arg0, a, b);
             return __ret;
+        }
+
+        public static void print_text(string text)
+        {
+            __Internal.print_text(text);
         }
 
         public static global::CppSharpSampleBinding.NativeFunctionTable GetFunctionTable()

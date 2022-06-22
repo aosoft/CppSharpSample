@@ -14,6 +14,8 @@ using FnSum = std::int32_t (*)(std::int32_t, std::int32_t);
 
 std::int32_t DLLEXPORT Sum2(FnSum fn, std::int32_t a, std::int32_t b);
 
+void DLLEXPORT print_text(const char *text);
+
 struct NativeFunctionTable
 {
     void (*Destroy)(void *);
