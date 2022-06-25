@@ -1,10 +1,10 @@
-﻿namespace CppSharpSample
+﻿namespace CppSharpSampleBinding
 {
-    public static class NativeInterfaceCSharp
+    public partial class NativeFunctionTable
     {
-        public static CppSharpSampleBinding.NativeFunctionTable CreateNativeFunctionTable(INativeInterface csharp)
+        public static NativeFunctionTable CreateNativeFunctionTable(CppSharpSample.INativeInterface csharp)
         {
-            var ret = new CppSharpSampleBinding.NativeFunctionTable();
+            var ret = new NativeFunctionTable();
             ret.Destroy = _ => csharp.Dispose();
             ret.GetValue = _ => csharp.Value;
             ret.SetValue = (_, value) => csharp.Value = value;
