@@ -7,16 +7,16 @@ while (true)
         break;
     }
 
-    var dir = Path.Combine(info.FullName, "cpp", "include");
-    if (Directory.Exists(dir))
+    var includeDir = Path.Combine(info.FullName, "cpp", "include");
+    if (Directory.Exists(includeDir))
     {
-        var outDir = Path.Combine(info.FullName, "dotnet", "CppSharpSample", "CppSharpSample", "Generated");
-        if (!Directory.Exists(outDir))
+        var outputDir = Path.Combine(info.FullName, "dotnet", "CppSharpSample", "CppSharpSample", "Generated");
+        if (!Directory.Exists(outputDir))
         {
-            Directory.CreateDirectory(outDir);
+            Directory.CreateDirectory(outputDir);
         }
 
-        CppSharp.ConsoleDriver.Run(new CppSharpSampleBindgen.Library(dir, outDir));
+        CppSharp.ConsoleDriver.Run(new CppSharpSampleBindgen.Library(includeDir, outputDir));
         break;
     }
 
