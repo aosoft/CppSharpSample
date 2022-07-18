@@ -1,4 +1,6 @@
-﻿namespace CppSharpSampleBinding
+﻿using System.Runtime.InteropServices;
+
+namespace CppSharpSampleBinding
 {
     public partial class NativeFunctionTable
     {
@@ -10,6 +12,48 @@
             ret.SetValue = (_, value) => csharp.Value = value;
             ret.Print = _ => csharp.Print();
             return ret;
+        }
+        
+        public static NativeFunctionTable CreateNativeFunctionTableWithContext(CppSharpSample.INativeInterface csharp)
+        {
+            var ret = new NativeFunctionTable();
+            ret.Destroy = static contextPtr =>
+            {
+                var context = GCHandle.FromIntPtr(contextPtr).Target as CppSharpSample.INativeInterface;
+                context?.Dispose();
+            };
+            ret.GetValue = static contextPtr =>
+            {
+                var context = GCHandle.FromIntPtr(contextPtr).Target as CppSharpSample.INativeInterface;
+                return context?.Value ?? 0;
+            };
+            ret.SetValue = static (contextPtr, value) =>
+            {
+                var context = GCHandle.FromIntPtr(contextPtr).Target as CppSharpSample.INativeInterface;
+                if (context != null)
+                {
+                    context.Value = value;
+                }
+            };
+            ret.Print = static contextPtr =>
+            {
+                var context = GCHandle.FromIntPtr(contextPtr).Target as CppSharpSample.INativeInterface;
+                context?.Print();
+            };
+            
+            ret.Context = GCHandle.ToIntPtr(GCHandle.Alloc(csharp));
+            return ret;
+        }
+        
+        internal IntPtr Context { get; private set; } = IntPtr.Zero;
+
+        partial void DisposePartial(bool disposing)
+        {
+            if (Context != IntPtr.Zero)
+            {
+                GCHandle.FromIntPtr(Context).Free();
+                Context = IntPtr.Zero;
+            }
         }
     }
 }

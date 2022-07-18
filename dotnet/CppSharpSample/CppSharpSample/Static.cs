@@ -11,8 +11,10 @@
         
         public static void TestCallback(INativeInterface intf)
         {
-            using var native = CppSharpSampleBinding.NativeFunctionTable.CreateNativeFunctionTable(intf);
-            CppSharpSampleBinding.header.TestCallback(native, IntPtr.Zero);
+            //using var native = CppSharpSampleBinding.NativeFunctionTable.CreateNativeFunctionTable(intf);
+            //CppSharpSampleBinding.header.TestCallback(native, IntPtr.Zero);
+            using var native = CppSharpSampleBinding.NativeFunctionTable.CreateNativeFunctionTableWithContext(intf);
+            CppSharpSampleBinding.header.TestCallback(native, native.Context);
         }
     }
 }
