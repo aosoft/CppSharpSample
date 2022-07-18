@@ -1,4 +1,6 @@
-﻿namespace CppSharpSample
+﻿using System.Runtime.InteropServices;
+
+namespace CppSharpSample
 {
     public static class Static
     {
@@ -13,8 +15,19 @@
         {
             //using var native = CppSharpSampleBinding.NativeFunctionTable.CreateNativeFunctionTable(intf);
             //CppSharpSampleBinding.header.TestCallback(native, IntPtr.Zero);
+
             using var native = CppSharpSampleBinding.NativeFunctionTable.CreateNativeFunctionTableWithContext(intf);
-            CppSharpSampleBinding.header.TestCallback(native, native.Context);
+
+            var h = GCHandle.Alloc(intf);
+            var context = GCHandle.ToIntPtr(h);
+            try
+            {
+                CppSharpSampleBinding.header.TestCallback(native, context);
+            }
+            finally
+            {
+                h.Free();
+            }
         }
     }
 }

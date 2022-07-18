@@ -41,19 +41,7 @@ namespace CppSharpSampleBinding
                 context?.Print();
             };
             
-            ret.Context = GCHandle.ToIntPtr(GCHandle.Alloc(csharp));
             return ret;
-        }
-        
-        internal IntPtr Context { get; private set; } = IntPtr.Zero;
-
-        partial void DisposePartial(bool disposing)
-        {
-            if (Context != IntPtr.Zero)
-            {
-                GCHandle.FromIntPtr(Context).Free();
-                Context = IntPtr.Zero;
-            }
         }
     }
 }
